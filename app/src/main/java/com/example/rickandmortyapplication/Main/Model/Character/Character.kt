@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 @Entity(tableName = "characters")
 data class Character (
@@ -56,4 +57,4 @@ data class Character (
     @Expose
     var created: String? = null
 
-)
+):Serializable

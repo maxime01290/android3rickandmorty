@@ -1,16 +1,12 @@
 package com.example.rickandmortyapplication.Main.View
 
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.example.rickandmortyapplication.Main.Fragment.FragmentDetailsCharacter
 import com.example.rickandmortyapplication.R
+import kotlinx.android.synthetic.main.activity_details_character.*
 
 class DetailsCharacters : AppCompatActivity() {
-
-    private lateinit var toolbar: Toolbar
-    private lateinit var textViewToolbar: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,12 +17,10 @@ class DetailsCharacters : AppCompatActivity() {
     }
 
     private fun initToolbar(){
-        toolbar = findViewById<Toolbar>(R.id.toolbar_details_characters)
-        toolbar.title = ""
-        setSupportActionBar(toolbar)
+        toolbar_details_characters.title = ""
+        setSupportActionBar(toolbar_details_characters)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        textViewToolbar = findViewById(R.id.textView_toolbar_details_characters)
-        textViewToolbar.setText("Détails du personnage")
+        textView_toolbar_details_characters.setText("Détails du personnage")
     }
 
     private fun loadFragment(){

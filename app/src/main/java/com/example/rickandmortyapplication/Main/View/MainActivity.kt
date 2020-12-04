@@ -12,12 +12,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.tasks.OnCompleteListener
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var boutonPageSuivante:Button
-    private lateinit var boutonConnexionGoogle: SignInButton
-    private lateinit var textViewTitrePageConnexion:TextView
-    private lateinit var textViewPageConnexion:TextView
+
     private lateinit var mGoogleSignInClient:GoogleSignInClient
     private var isLoggedInGoogle = false
 
@@ -31,14 +29,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initComposant(){
-        boutonPageSuivante = findViewById(R.id.button_next_page_home)
-        boutonConnexionGoogle = findViewById(R.id.button_google_connexion)
-        boutonConnexionGoogle.setSize(SignInButton.SIZE_STANDARD)
-
-        textViewTitrePageConnexion = findViewById(R.id.textView_title_connexion_page)
-        textViewPageConnexion = findViewById(R.id.textView_connexion)
-        textViewTitrePageConnexion.setText("Bienvenue sur l'application Rick et Morty!")
-        textViewPageConnexion.setText("Connexion")
+        button_google_connexion.setSize(SignInButton.SIZE_STANDARD)
+        textView_title_connexion_page.setText("Bienvenue sur l'application Rick et Morty!")
+        textView_connexion.setText("Connexion")
     }
 
     private fun connexionGoogle(){
@@ -59,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun gestionClick(){
-        boutonPageSuivante.setOnClickListener {
+        button_next_page_home.setOnClickListener {
             if(isLoggedInGoogle){
                 val intent = Intent(MainActivity@this, ActivityCharacters::class.java)
                 startActivity(intent)
@@ -67,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             else{ Toast.makeText(MainActivity@this,"Connectez vous pour pouvoir continuer",Toast.LENGTH_SHORT).show() }
         }
 
-        boutonConnexionGoogle.setOnClickListener {
+        button_google_connexion.setOnClickListener {
             signIn()
             isLoggedInGoogle=true
         }

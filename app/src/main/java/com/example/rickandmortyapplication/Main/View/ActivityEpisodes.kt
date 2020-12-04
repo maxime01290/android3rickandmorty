@@ -4,27 +4,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmortyapplication.Main.Adapter.AdapterEpisodes
 import com.example.rickandmortyapplication.Main.Model.Episodes.Episodes
 import com.example.rickandmortyapplication.Main.ViewModel.EpisodeViewModel
 import com.example.rickandmortyapplication.R
+import kotlinx.android.synthetic.main.activity_list_episodes.*
 
 class ActivityEpisodes : AppCompatActivity() {
     private var numPreviousPage = 0
     private var numPage = 1
     private var numNextPage = 2
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var listEpisodes : ArrayList<Episodes>
+    private lateinit var EpisodesList : ArrayList<Episodes>
     private lateinit var adapterEpisodes : AdapterEpisodes
-    private lateinit var buttonPreviousPage : Button
-    private lateinit var buttonNextPage : Button
     private val viewModel: EpisodeViewModel by viewModels()
+    private var recyclerViewIsCreate = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,14 +33,10 @@ class ActivityEpisodes : AppCompatActivity() {
     }
 
     private fun initComponent(){
-        val toolbar = findViewById<Toolbar>(R.id.toolbar_list_episodes)
-        toolbar.title = ""
-        setSupportActionBar(toolbar)
+        toolbar_list_episodes.title = ""
+        setSupportActionBar(toolbar_list_episodes)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        recyclerView = findViewById(R.id.recyclerView_episodes)
-        buttonPreviousPage=findViewById(R.id.button_previous_page_episodes)
-        buttonNextPage=findViewById(R.id.button_next_page_episodes)
-        listEpisodes = ArrayList()
+        EpisodesList = ArrayList()
     }
 
     private fun initAPI(){
@@ -53,38 +45,39 @@ class ActivityEpisodes : AppCompatActivity() {
 
     private val changeObserver = Observer <ArrayList<Episodes>?> { value ->
         value ?.let {
-            listEpisodes = it
+            EpisodesList = it
             createList()
         }
     }
 
     private fun createList(){
-        if (numPage == 1) {
-            adapterEpisodes = AdapterEpisodes(this@ActivityEpisodes, listEpisodes)
-            recyclerView.setAdapter(adapterEpisodes)
+        if (!recyclerViewIsCreate) {
+            recyclerViewIsCreate=true
+            adapterEpisodes = AdapterEpisodes(this@ActivityEpisodes, EpisodesList)
+            recyclerView_episodes.setAdapter(adapterEpisodes)
         } else {
-            adapterEpisodes.submit(listEpisodes)
+            adapterEpisodes.submit(EpisodesList)
         }
     }
 
     private fun MAJContentButton(){
         if(numPage>1){
-            buttonPreviousPage.text = "Page $numPreviousPage"
+            button_previous_page_episodes.text = "Page $numPreviousPage"
         }
         else{
-            buttonPreviousPage.text = " "
+            button_previous_page_episodes.text = " "
         }
 
         if(numNextPage<4){
-            buttonNextPage.text = "Page $numNextPage"
+            button_next_page_episodes.text = "Page $numNextPage"
         }
         else{
-            buttonNextPage.text = " "
+            button_next_page_episodes.text = " "
         }
     }
 
     private fun manageClick(){
-        buttonPreviousPage.setOnClickListener {
+        button_previous_page_episodes.setOnClickListener {
             if(numPreviousPage>0){
                 updateNumPagePrecedente()
                 MAJContentButton()
@@ -92,7 +85,7 @@ class ActivityEpisodes : AppCompatActivity() {
             }
         }
 
-        buttonNextPage.setOnClickListener {
+        button_next_page_episodes.setOnClickListener {
             if(numNextPage<4){
                 updateNumPageSuivante()
                 MAJContentButton()

@@ -16,16 +16,14 @@ import com.example.rickandmortyapplication.Main.Network.NetworkManager
 import com.example.rickandmortyapplication.Main.ViewModel.EpisodeViewModel
 import com.example.rickandmortyapplication.Main.ViewModel.LocationViewModel
 import com.example.rickandmortyapplication.R
+import kotlinx.android.synthetic.main.activity_list_locations.*
 
 class ActivityLocations : AppCompatActivity() {
     private var numPreviousPage:Int = 0
     private var numPage:Int = 1
     private var numNextPage:Int = 2
-    private lateinit var recyclerView: RecyclerView
     private lateinit var listLocations : ArrayList<Locations>
     private lateinit var adapterPersonnage : AdapterLocations
-    private lateinit var buttonPreviousPage : Button
-    private lateinit var buttonNextPage : Button
     private val viewModel: LocationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,15 +37,10 @@ class ActivityLocations : AppCompatActivity() {
     }
 
     fun initComponent(){
-        val toolbar =
-            findViewById<Toolbar>(R.id.toolbar_locations)
-        toolbar.title = ""
-        setSupportActionBar(toolbar)
+        toolbar_locations.title = ""
+        setSupportActionBar(toolbar_locations)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        buttonPreviousPage = findViewById(R.id.button_previous_page_locations)
-        buttonNextPage = findViewById(R.id.button_next_page_locations)
         listLocations = ArrayList()
-        recyclerView = findViewById(R.id.recyclerView_locations)
     }
 
     fun initAPI(){
@@ -63,7 +56,7 @@ class ActivityLocations : AppCompatActivity() {
     fun createList(){
         if (numPage == 1) {
             adapterPersonnage = AdapterLocations(this@ActivityLocations, listLocations)
-            recyclerView.setAdapter(adapterPersonnage)
+            recyclerView_locations.setAdapter(adapterPersonnage)
         } else {
             adapterPersonnage.submit(listLocations)
         }
@@ -71,22 +64,22 @@ class ActivityLocations : AppCompatActivity() {
 
     private fun MAJContentButton(){
         if(numPage>1){
-            buttonPreviousPage.text = "Page $numPreviousPage"
+            button_previous_page_locations.text = "Page $numPreviousPage"
         }
         else{
-            buttonPreviousPage.text = " "
+            button_previous_page_locations.text = " "
         }
 
         if(numNextPage<7){
-            buttonNextPage.text = "Page $numNextPage"
+            button_next_page_locations.text = "Page $numNextPage"
         }
         else{
-            buttonNextPage.text = " "
+            button_next_page_locations.text = " "
         }
     }
 
     private fun manageClick(){
-        buttonPreviousPage.setOnClickListener {
+        button_previous_page_locations.setOnClickListener {
             if(numPreviousPage>0){
                 updateNumPagePrecedente()
                 MAJContentButton()
@@ -94,7 +87,7 @@ class ActivityLocations : AppCompatActivity() {
             }
         }
 
-        buttonNextPage.setOnClickListener {
+        button_next_page_locations.setOnClickListener {
             if(numNextPage<7){
                 updateNumPageSuivante()
                 MAJContentButton()

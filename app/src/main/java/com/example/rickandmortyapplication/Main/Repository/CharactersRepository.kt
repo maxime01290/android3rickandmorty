@@ -8,13 +8,13 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class CharactersRepository {
+
     private val list = MutableLiveData<ArrayList<Character>>()
 
     suspend fun getRepositoryCharactersList():LiveData<ArrayList<Character>>{
         GlobalScope.launch {
             list.postValue(NetworkManager.getNetworkListePageCharactersCoroutine())
         }
-
         return list
     }
 

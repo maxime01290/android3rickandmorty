@@ -8,6 +8,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class LocationsRepository {
+
     private val list = MutableLiveData<ArrayList<Locations>>()
 
     suspend fun getRepositoryLocationsList(): LiveData<ArrayList<Locations>> {

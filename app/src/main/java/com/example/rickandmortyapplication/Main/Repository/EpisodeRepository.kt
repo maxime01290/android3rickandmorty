@@ -9,6 +9,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class EpisodeRepository {
+
     private val list = MutableLiveData<ArrayList<Episodes>>()
 
     suspend fun getRepositoryEpisodesList(): LiveData<ArrayList<Episodes>> {

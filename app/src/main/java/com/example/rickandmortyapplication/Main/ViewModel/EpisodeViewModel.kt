@@ -12,6 +12,7 @@ import com.example.rickandmortyapplication.Main.Repository.EpisodeRepository
 import kotlinx.coroutines.launch
 
 class EpisodeViewModel : ViewModel() {
+
     private lateinit var episodesList: LiveData<ArrayList<Episodes>>
 
     private val episodesRepository: EpisodeRepository = EpisodeRepository()

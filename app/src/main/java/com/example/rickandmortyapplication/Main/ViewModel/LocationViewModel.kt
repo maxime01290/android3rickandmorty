@@ -12,21 +12,6 @@ import com.example.rickandmortyapplication.Main.Repository.LocationsRepository
 import kotlinx.coroutines.launch
 
 class LocationViewModel : ViewModel() {
-//    private val LocationList = NetworkManager.getNetworkListePageLocations()
-//
-//    fun getLocationList() : MutableLiveData<ArrayList<Locations>?>{
-//        return LocationList
-//    }
-//
-//    private lateinit var updateEpisodeList:MutableLiveData<ArrayList<Locations>?>
-//
-//    fun loadUpdateEpisodeList(numPage: Int){
-//        updateEpisodeList = NetworkManager.updateNetworkPageLocations(numPage)
-//    }
-//
-//    fun getUpdateCharacterList():MutableLiveData<ArrayList<Locations>?>{
-//        return updateEpisodeList
-//    }
 
     private lateinit var locationsList: LiveData<ArrayList<Locations>>
 

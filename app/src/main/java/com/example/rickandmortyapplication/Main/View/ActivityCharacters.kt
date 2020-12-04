@@ -18,18 +18,16 @@ import com.example.rickandmortyapplication.Main.ViewModel.CharacterViewModel
 import com.example.rickandmortyapplication.R
 import kotlinx.android.synthetic.main.activity_list_characters.*
 
-class ActivityCharacters : AppCompatActivity(), AdapterCharacters.onItemClickListener,AdapterCharacters.onItemLongClickListener{
+class ActivityCharacters : AppCompatActivity(), AdapterCharacters.onItemClickListener{
 
     private var numPreviousPage = 0
     private var numPage = 1
     private var numNextPage = 2
-    private lateinit var recyclerView: RecyclerView
     private lateinit var characterList : ArrayList<Character>
     private lateinit var favorisList: ArrayList<Character>
     private lateinit var adapterCharacters : AdapterCharacters
-    private lateinit var buttonPreviousPage : Button
-    private lateinit var buttonNextPage : Button
     private val viewModel: CharacterViewModel by viewModels()
+    private var recyclerViewIsCreate = false
 
     companion object  {
         val LIST = "list"
@@ -51,11 +49,8 @@ class ActivityCharacters : AppCompatActivity(), AdapterCharacters.onItemClickLis
         toolbar_list_characters.title = ""
         setSupportActionBar(toolbar_list_characters)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        buttonPreviousPage = findViewById(R.id.button_previous_page_characters)
-        buttonNextPage = findViewById(R.id.button_next_page_characters)
         characterList = ArrayList()
         favorisList = ArrayList()
-        recyclerView = findViewById(R.id.recyclerView_characters)
     }
 
     private fun initAPI(){
@@ -70,16 +65,17 @@ class ActivityCharacters : AppCompatActivity(), AdapterCharacters.onItemClickLis
     }
 
     private fun createList(){
-        if (numPage == 1) {
-            adapterCharacters = AdapterCharacters(this@ActivityCharacters, characterList, this,this)
-            recyclerView.setAdapter(adapterCharacters)
+        if (!recyclerViewIsCreate) {
+            recyclerViewIsCreate=true
+            adapterCharacters = AdapterCharacters(this@ActivityCharacters, characterList, this)
+            recyclerView_characters.setAdapter(adapterCharacters)
         } else {
             adapterCharacters.submit(characterList)
         }
     }
 
     private fun manageClick(){
-        buttonPreviousPage.setOnClickListener {
+        button_previous_page_characters.setOnClickListener {
             if(numPreviousPage>0){
                 updateNumPagePrecedente()
                 MAJContenuBouton()
@@ -88,7 +84,7 @@ class ActivityCharacters : AppCompatActivity(), AdapterCharacters.onItemClickLis
             }
         }
 
-        buttonNextPage.setOnClickListener {
+        button_next_page_characters.setOnClickListener {
             if(numNextPage<35){
                 updateNumPageSuivante()
                 MAJContenuBouton()
@@ -100,17 +96,17 @@ class ActivityCharacters : AppCompatActivity(), AdapterCharacters.onItemClickLis
 
     private fun MAJContenuBouton(){
         if(numPage>1){
-            buttonPreviousPage.text = "Page $numPreviousPage"
+            button_previous_page_characters.text = "Page $numPreviousPage"
         }
         else{
-            buttonPreviousPage.text = " "
+            button_previous_page_characters.text = " "
         }
 
         if(numNextPage<35){
-            buttonNextPage.text = "Page $numNextPage"
+            button_next_page_characters.text = "Page $numNextPage"
         }
         else{
-            buttonNextPage.text = " "
+            button_next_page_characters.text = " "
         }
     }
 
@@ -179,8 +175,8 @@ class ActivityCharacters : AppCompatActivity(), AdapterCharacters.onItemClickLis
 
     override fun onItemLongClick(position: Int) {
         favorisList.add(characterList[position])
-        Log.d("test", favorisList.size.toString())
-        Toast.makeText(this,"Ajout à la liste des favoris",Toast.LENGTH_SHORT)
+        Toast.makeText(this,"Ajout aux favoris",Toast.LENGTH_SHORT).show()
+        Log.d("test", "taille de la liste = ${favorisList.size}")
     }
 
 }

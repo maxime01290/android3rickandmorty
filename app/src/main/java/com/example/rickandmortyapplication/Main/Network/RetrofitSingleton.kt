@@ -1,8 +1,5 @@
 package com.example.rickandmortyapplication.Main.Network
 
-import com.example.rickandmortyapplication.Main.API.InterfaceListEpisodes
-import com.example.rickandmortyapplication.Main.API.InterfaceListLocations
-import com.example.rickandmortyapplication.Main.API.InterfaceListCharacters
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

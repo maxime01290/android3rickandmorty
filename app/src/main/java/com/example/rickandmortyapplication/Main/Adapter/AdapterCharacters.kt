@@ -6,37 +6,38 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.rickandmortyapplication.Main.Model.Character.Character
 import com.example.rickandmortyapplication.R
 
-class AdapterCharacters(context: Context, list: ArrayList<Character>,onitemClickListener:onItemClickListener,onItemLongClickListener: onItemLongClickListener) : RecyclerView.Adapter<AdapterCharacters.MyVH>() {
+class AdapterCharacters(context: Context, list: ArrayList<Character>,onitemClickListener:onItemClickListener) : RecyclerView.Adapter<AdapterCharacters.MyVH>() {
     var list: ArrayList<Character>
     var context: Context
     var onitemClickListener:onItemClickListener
-    var onitemLongClickListener:onItemLongClickListener
+    //var onitemLongClickListener:onItemLongClickListener
 
     init {
-        this.onitemLongClickListener= onItemLongClickListener
+        //this.onitemLongClickListener= onItemLongClickListener
         this.list = list
         this.context = context
         this.onitemClickListener = onitemClickListener
     }
 
-    class MyVH(view: View, onitemClickListener: onItemClickListener,onItemLongClickListener: onItemLongClickListener) : RecyclerView.ViewHolder(view), View.OnClickListener,View.OnLongClickListener {
+    class MyVH(view: View, onitemClickListener: onItemClickListener) : RecyclerView.ViewHolder(view), View.OnClickListener,View.OnLongClickListener {
         var tv1 : TextView
         var tv2 : TextView
         var tv3 : TextView
         var iv :ImageView
         var onItemClickListener:onItemClickListener
-        var onitemLongClickListener:onItemLongClickListener
+        //var onitemLongClickListener:onItemLongClickListener
         init {
             tv1 = view.findViewById(R.id.textView_name_characters)
             tv2 = view.findViewById(R.id.textView_data)
             tv3 = view.findViewById(R.id.textView_last_position)
             iv = view.findViewById(R.id.imageView_characters)
-            this.onitemLongClickListener = onItemLongClickListener
+            //this.onitemLongClickListener = onItemLongClickListener
             this.onItemClickListener = onitemClickListener
             itemView.setOnClickListener(this)
             itemView.setOnLongClickListener(this)
@@ -47,7 +48,7 @@ class AdapterCharacters(context: Context, list: ArrayList<Character>,onitemClick
         }
 
         override fun onLongClick(p0: View?): Boolean {
-           onitemLongClickListener.onItemLongClick(adapterPosition)
+            onItemClickListener.onItemLongClick(adapterPosition)
             return true
         }
 
@@ -61,7 +62,7 @@ class AdapterCharacters(context: Context, list: ArrayList<Character>,onitemClick
         val context = parent.context
         val layout:View = LayoutInflater.from(context)
                 .inflate(R.layout.component_list_characters, parent, false)
-        return MyVH(layout,onitemClickListener,onitemLongClickListener)
+        return MyVH(layout,onitemClickListener)
     }
 
     override fun onBindViewHolder(holder: MyVH, position: Int) {
@@ -80,8 +81,6 @@ class AdapterCharacters(context: Context, list: ArrayList<Character>,onitemClick
 
     interface onItemClickListener {
         fun onItemClick(position: Int)
-    }
-    interface onItemLongClickListener{
         fun onItemLongClick(position: Int)
     }
 
@@ -92,3 +91,4 @@ class AdapterCharacters(context: Context, list: ArrayList<Character>,onitemClick
     }
 
 }
+
