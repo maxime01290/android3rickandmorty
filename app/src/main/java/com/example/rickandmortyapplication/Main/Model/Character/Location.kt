@@ -7,10 +7,10 @@ import java.io.Serializable
 data class Location (
     @SerializedName("name")
     @Expose
-    var name: String? = null,
+    var nameLocation: String? = null,
 
     @SerializedName("url")
     @Expose
-    var url: String? = null
+    var urlLocation: String? = null
 
 ):Serializable

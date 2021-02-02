@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_list_characters"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:title="Liste des personnages" />
     <item android:id="@+id/menu_list_episodes"
         android:title="Liste des épisodes"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"

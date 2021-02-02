@@ -1,19 +1,19 @@
-package com.example.rickandmortyapplication.Main.Model.Character
+package com.example.rickandmortyapplication.Main.Model.Favory
 
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.example.rickandmortyapplication.Main.Model.BaseClass
+import com.example.rickandmortyapplication.Main.Model.Character.Location
+import com.example.rickandmortyapplication.Main.Model.Character.Origin
 import com.example.rickandmortyapplication.Main.Model.Converters.ConvertEpisode
 import com.example.rickandmortyapplication.Main.Model.Converters.ConvertLocation
 import com.example.rickandmortyapplication.Main.Model.Converters.ConvertOrigin
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
-@Entity(tableName = "Characters")
-data class Character (
+@Entity(tableName = "Favory")
+data class Favory (
     @SerializedName("id") @PrimaryKey var id: Int? = null,
 
     @SerializedName("name") var nameCharacter: String? = null,
@@ -26,9 +26,11 @@ data class Character (
 
     @SerializedName("gender") var gender: String? = null,
 
-    @SerializedName("origin") @Embedded @TypeConverters(ConvertOrigin::class) var origin: Origin? = null,
+    @SerializedName("origin") @Embedded
+    @TypeConverters(ConvertOrigin::class) var origin: Origin? = null,
 
-    @SerializedName("location") @Embedded @TypeConverters(ConvertLocation::class) var location: Location? = null,
+    @SerializedName("location") @Embedded
+    @TypeConverters(ConvertLocation::class) var location: Location? = null,
 
     @SerializedName("image") var image: String? = null,
 
@@ -37,5 +39,4 @@ data class Character (
     @SerializedName("url") var url: String? = null,
 
     @SerializedName("created") var created: String? = null
-
-):Serializable, BaseClass()
+): BaseClass()

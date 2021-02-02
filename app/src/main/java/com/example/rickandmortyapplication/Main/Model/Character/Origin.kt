@@ -7,10 +7,10 @@ import java.io.Serializable
 data class Origin (
     @SerializedName("name")
     @Expose
-    var name: String? = null,
+    var nameOrigin: String? = null,
 
     @SerializedName("url")
     @Expose
-    var url: String? = null
+    var urlOrigin: String? = null
 
 ):Serializable

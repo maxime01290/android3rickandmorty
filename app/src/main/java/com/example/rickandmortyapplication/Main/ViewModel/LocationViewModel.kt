@@ -1,33 +1,34 @@
 package com.example.rickandmortyapplication.Main.ViewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.rickandmortyapplication.Main.Database.GlobalRepository
+import com.example.rickandmortyapplication.Main.Model.Character.Character
 import com.example.rickandmortyapplication.Main.Model.Episodes.Episodes
+import com.example.rickandmortyapplication.Main.Model.Favory.Favory
 import com.example.rickandmortyapplication.Main.Model.Locations.Locations
 import com.example.rickandmortyapplication.Main.Network.NetworkManager
 import com.example.rickandmortyapplication.Main.Repository.EpisodeRepository
 import com.example.rickandmortyapplication.Main.Repository.LocationsRepository
 import kotlinx.coroutines.launch
 
-class LocationViewModel : ViewModel() {
+class LocationViewModel(private val repository: GlobalRepository) : ViewModel() {
 
-    private lateinit var locationsList: LiveData<ArrayList<Locations>>
+    private var locationsList = MutableLiveData<ArrayList<Locations>>()
 
-    private val locationsRepository: LocationsRepository = LocationsRepository()
-
-    fun getLocationsList(): LiveData<ArrayList<Locations>> {
+    fun getUpdateLocationsList(numPage:Int): LiveData<ArrayList<Locations>> {
         viewModelScope.launch {
-            locationsList = locationsRepository.getRepositoryLocationsList()
+            locationsList.postValue(repository.getLocationsByPage(numPage) as ArrayList<Locations>)
         }
         return locationsList
     }
 
-    fun getUpdateLocationsList(numPage:Int): LiveData<ArrayList<Locations>> {
-        viewModelScope.launch {
-            locationsList = locationsRepository.getUpdateRepositoryEpisodesList(numPage)
+}
+class RoomViewModelFactoryLocations(private val repository: GlobalRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(LocationViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return LocationViewModel(repository) as T
         }
-        return locationsList
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

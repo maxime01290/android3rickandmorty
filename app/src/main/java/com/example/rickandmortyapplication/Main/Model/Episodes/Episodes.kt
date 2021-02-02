@@ -1,12 +1,17 @@
 package com.example.rickandmortyapplication.Main.Model.Episodes
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.rickandmortyapplication.Main.Model.BaseClass
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+@Entity(tableName = "Episodes")
 data class Episodes (
     @SerializedName("id")
     @Expose
+    @PrimaryKey
     var id: Int? = null,
 
     @SerializedName("name")
@@ -33,4 +38,4 @@ data class Episodes (
     @Expose
     var created: String? = null
 
-):Serializable
+):Serializable, BaseClass()

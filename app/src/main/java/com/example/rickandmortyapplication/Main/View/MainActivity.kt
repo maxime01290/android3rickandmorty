@@ -1,76 +1,65 @@
 package com.example.rickandmortyapplication.Main.View
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.example.rickandmortyapplication.Main.View.fragment.*
 import com.example.rickandmortyapplication.R
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
-import com.google.android.gms.tasks.OnCompleteListener
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var mGoogleSignInClient:GoogleSignInClient
-    private var isLoggedInGoogle = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        initComposant()
-        connexionGoogle()
-        gestionClick()
+        val fragment = CharactersFragment()
+        supportFragmentManager.beginTransaction().add(R.id.constraintLayout_main_activity, fragment).addToBackStack(null).commit()
     }
 
-    private fun initComposant(){
-        button_google_connexion.setSize(SignInButton.SIZE_STANDARD)
-        textView_title_connexion_page.setText("Bienvenue sur l'application Rick et Morty!")
-        textView_connexion.setText("Connexion")
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 
-    private fun connexionGoogle(){
-        val gso:GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this,gso)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //Création d'un MenuInflater qui va permettre d'instancier un Menu XML en un objet Menu
+        val inflater = menuInflater
+        //Instanciation du menu XML spécifier en un objet Menu
+        inflater.inflate(R.menu.option_characters, menu)
+        return true
     }
 
-    private fun signIn(){
-        val intent:Intent = mGoogleSignInClient.signInIntent
-        startActivity(intent)
-    }
-
-    private fun signOut(){
-        mGoogleSignInClient.signOut().addOnCompleteListener(this, OnCompleteListener {  })
-    }
-
-    private fun gestionClick(){
-        button_next_page_home.setOnClickListener {
-            if(isLoggedInGoogle){
-                val intent = Intent(MainActivity@this, ActivityCharacters::class.java)
-                startActivity(intent)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        //On regarde quel item a été cliqué grâce à son id et on déclenche une action
+        when (item.itemId) {
+            R.id.menu_list_characters -> {
+                val fragment = CharactersFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.constraintLayout_main_activity,fragment).addToBackStack(null).commit()
+                return true
             }
-            else{ Toast.makeText(MainActivity@this,"Connectez vous pour pouvoir continuer",Toast.LENGTH_SHORT).show() }
+            R.id.menu_list_episodes -> {
+                val fragment = EpisodesFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.constraintLayout_main_activity,fragment).addToBackStack(null).commit()
+                return true
+            }
+            R.id.menu_list_locations -> {
+                val fragment = LocationsFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.constraintLayout_main_activity,fragment).addToBackStack(null).commit()
+                return true
+            }
+            R.id.menu_favoris -> {
+                val fragment = FavorisFragment()
+                val bundle = Bundle()
+                bundle.putSerializable(CharactersFragment.LISTFAVORIS, CharactersFragment.favorisList)
+                fragment.setArguments(bundle)
+                //ajouter bundle pour la liste de favoris
+                supportFragmentManager.beginTransaction().replace(R.id.constraintLayout_main_activity,fragment).addToBackStack(null).commit()
+                return true
+            }
+            else ->{
+                supportFragmentManager.popBackStack()
+            }
         }
-
-        button_google_connexion.setOnClickListener {
-            signIn()
-            isLoggedInGoogle=true
-        }
-
-    }
-
-    override fun onStop() {
-        super.onStop()
-        if (isLoggedInGoogle) {
-            signOut()
-        }
+        return false
     }
 }

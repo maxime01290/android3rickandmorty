@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Main.View.ActivityLocations">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Main.View.fragment.CharactersFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_locations"
+        android:id="@+id/toolbar_list_characters"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#6BB442"
@@ -18,54 +18,55 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView_toolbar_locations"
+        android:id="@+id/textView_toolbar_list_characters"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:paddingTop="10dp"
-        android:text="Liste des lieux"
+        android:gravity="center_horizontal"
+        android:paddingTop="15dp"
+        android:text="liste des personnages"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar_locations"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar_locations" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_locations"
+        android:id="@+id/recyclerView_characters"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_locations"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_list_characters"
         tools:listitem="@layout/component_list_characters"/>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="50dp"
+        android:background="#D2D2D2"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/button_previous_page_locations"
+            android:id="@+id/button_previous_page_characters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:text="Button" />
+            android:background="#FFFFFF" />
 
         <Button
-            android:id="@+id/button_next_page_locations"
+            android:id="@+id/button_next_page_characters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#FFFFFF"
             android:text="Button" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,33 +1,27 @@
 package com.example.rickandmortyapplication.Main.ViewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.rickandmortyapplication.Main.Model.Character.Character
+import androidx.lifecycle.*
+import com.example.rickandmortyapplication.Main.Database.GlobalRepository
 import com.example.rickandmortyapplication.Main.Model.Episodes.Episodes
-import com.example.rickandmortyapplication.Main.Network.NetworkManager
-import com.example.rickandmortyapplication.Main.Repository.CharactersRepository
-import com.example.rickandmortyapplication.Main.Repository.EpisodeRepository
 import kotlinx.coroutines.launch
 
-class EpisodeViewModel : ViewModel() {
+class EpisodeViewModel(private val repository: GlobalRepository) : ViewModel() {
 
-    private lateinit var episodesList: LiveData<ArrayList<Episodes>>
-
-    private val episodesRepository: EpisodeRepository = EpisodeRepository()
-
-    fun getEpisodesList(): LiveData<ArrayList<Episodes>> {
-        viewModelScope.launch {
-            episodesList = episodesRepository.getRepositoryEpisodesList()
-        }
-        return episodesList
-    }
+    private var episodesList = MutableLiveData<ArrayList<Episodes>>()
 
     fun getUpdateEpisodesList(numPage:Int): LiveData<ArrayList<Episodes>> {
         viewModelScope.launch {
-            episodesList = episodesRepository.getUpdateRepositoryEpisodesList(numPage)
+            episodesList.postValue(repository.getEpisodesByPage(numPage) as ArrayList<Episodes>)
         }
         return episodesList
+    }
+}
+class RoomViewModelFactoryEpisodes(private val repository: GlobalRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(EpisodeViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return EpisodeViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
