@@ -39,7 +39,6 @@ class ConnexionActivity : AppCompatActivity() {
         val gso:GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
-
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso)
     }
 

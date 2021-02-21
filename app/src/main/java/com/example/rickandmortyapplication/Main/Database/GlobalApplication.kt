@@ -18,6 +18,7 @@ class GlobalApplication: Application() {
     val database by lazy { GlobalRoomDatabase.getDatabase(this, applicationScope) }
     val repository by lazy { GlobalRepository(database.globalDao(),this,NetworkManager) }
 
+    //test la connexion internet
     fun isConnected():Boolean{
         val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = cm.activeNetworkInfo

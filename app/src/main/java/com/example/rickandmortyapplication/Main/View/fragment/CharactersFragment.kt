@@ -50,19 +50,22 @@ class CharactersFragment : Fragment(),ViewHolderManager.BaseInterfaceOnItemClick
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initComposant()
-        initAPI()
         MAJContenuBouton()
         manageClick()
     }
 
     private fun initComposant(){
+        initToolbar()
+        characterList = ArrayList()
+        favorisList = ArrayList()
+        initAPI()
+    }
+
+    private fun initToolbar(){
         toolbar_list_characters.title = ""
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar_list_characters)
         (activity as AppCompatActivity?)!!.getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true)
-        characterList = ArrayList()
-        favorisList = ArrayList()
     }
-
     private fun initAPI(){
         databaseViewModel.getUpdateCharactersList(numPage)?.observe(viewLifecycleOwner, changeObserver)
     }
@@ -80,10 +83,11 @@ class CharactersFragment : Fragment(),ViewHolderManager.BaseInterfaceOnItemClick
             adapterCharacters = AdapterItem(requireContext(), characterList as ArrayList<BaseClass>, this)
             recyclerView_characters.setAdapter(adapterCharacters)
         } else {
-            adapterCharacters.submit(characterList as ArrayList<BaseClass>)
+            adapterCharacters.submit(characterList as ArrayList<BaseClass>) // met à jour la recyclerview
         }
     }
 
+    //gère les clics pour changer de pages
     private fun manageClick(){
         button_previous_page_characters.setOnClickListener {
             if(numPreviousPage>0){
@@ -104,6 +108,7 @@ class CharactersFragment : Fragment(),ViewHolderManager.BaseInterfaceOnItemClick
         }
     }
 
+    //met à jour l'UI du bouton
     private fun MAJContenuBouton(){
         if(numPage>1){
             button_previous_page_characters.text = "Page $numPreviousPage"
@@ -140,6 +145,7 @@ class CharactersFragment : Fragment(),ViewHolderManager.BaseInterfaceOnItemClick
         }
     }
 
+    //envoi sur la page de détails des personnages
     override fun onItemClick(position: Int) {
         val fragment = FragmentDetailsCharacter()
         val bundle = Bundle()
@@ -148,6 +154,7 @@ class CharactersFragment : Fragment(),ViewHolderManager.BaseInterfaceOnItemClick
         requireActivity().supportFragmentManager.beginTransaction().replace(R.id.constraintLayout_main_activity, fragment).addToBackStack(this.tag).commit()
     }
 
+    //ajoute un élément à la liste des favoris
     override fun onItemLongClick(position: Int) {
         databaseViewModelFavory.insert(characterList[position])
         //favorisList.add(characterList[position])

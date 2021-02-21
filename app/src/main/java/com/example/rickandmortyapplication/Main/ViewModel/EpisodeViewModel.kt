@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 class EpisodeViewModel(private val repository: GlobalRepository) : ViewModel() {
 
     private var episodesList = MutableLiveData<ArrayList<Episodes>>()
-
+    //renvoi les données à afficher
     fun getUpdateEpisodesList(numPage:Int): LiveData<ArrayList<Episodes>> {
         viewModelScope.launch {
             episodesList.postValue(repository.getEpisodesByPage(numPage) as ArrayList<Episodes>)
@@ -16,6 +16,7 @@ class EpisodeViewModel(private val repository: GlobalRepository) : ViewModel() {
         return episodesList
     }
 }
+//classe permettant d'instancier la base de donnée
 class RoomViewModelFactoryEpisodes(private val repository: GlobalRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(EpisodeViewModel::class.java)) {

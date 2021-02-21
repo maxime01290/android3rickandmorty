@@ -9,15 +9,16 @@ class CharacterViewModel(private val repository: GlobalRepository) : ViewModel()
 
     private var listCharacter = MutableLiveData<ArrayList<Character>>()
 
+    //renvoi les données à afficher
     fun getUpdateCharactersList(numPage:Int):LiveData<ArrayList<Character>>?{
         viewModelScope.launch {
             listCharacter.postValue(repository.getCharactersByPage(numPage) as ArrayList<Character>)
         }
         return listCharacter
     }
-
 }
 
+//classe permettant d'instancier la base de donnée
 class RoomViewModelFactoryCharacters(private val repository: GlobalRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CharacterViewModel::class.java)) {

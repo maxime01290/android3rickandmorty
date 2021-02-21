@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        //On regarde quel item a été cliqué grâce à son id et on déclenche une action
+        //On regarde quel item a été cliqué grâce à son id et on déclenche une action pour changer de page
         when (item.itemId) {
             R.id.menu_list_characters -> {
                 val fragment = CharactersFragment()

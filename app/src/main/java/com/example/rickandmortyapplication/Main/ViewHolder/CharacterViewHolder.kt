@@ -11,6 +11,7 @@ import com.example.rickandmortyapplication.Main.Model.Favory.Favory
 import com.example.rickandmortyapplication.Main.Model.Locations.Locations
 import com.example.rickandmortyapplication.R
 
+//gère le bind de l'adapter pour les classes Character et les favoris
 class CharacterViewHolder (view: View, onitemClickListener: ViewHolderManager.BaseInterfaceOnItemClickListener) : ViewHolderManager.BaseViewHolder<BaseClass>(view), View.OnClickListener,
         View.OnLongClickListener {
     var tv1 : TextView
@@ -18,6 +19,7 @@ class CharacterViewHolder (view: View, onitemClickListener: ViewHolderManager.Ba
     var tv3 : TextView
     var iv : ImageView
     var onItemClickListener: ViewHolderManager.BaseInterfaceOnItemClickListener
+
     init {
         tv1 = view.findViewById(R.id.textView_name_characters)
         tv2 = view.findViewById(R.id.textView_data)
@@ -50,6 +52,7 @@ class CharacterViewHolder (view: View, onitemClickListener: ViewHolderManager.Ba
     override fun bind(item: Episodes) {}
 
     override fun bind(item: Locations) {}
+
     override fun bind(item: Favory) {
         iv.load(item.image)
         tv1.setText(item.nameCharacter)

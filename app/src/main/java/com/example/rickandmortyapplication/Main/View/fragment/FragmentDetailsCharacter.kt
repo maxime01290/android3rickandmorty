@@ -26,7 +26,7 @@ class FragmentDetailsCharacter : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
         recuperationIntent()
-        attributionValeur()
+        attributionValue()
     }
 
     private fun initToolbar() {
@@ -40,7 +40,7 @@ class FragmentDetailsCharacter : Fragment() {
         item = this.arguments?.getSerializable(CharactersFragment.CHARACTER) as Character
     }
 
-    private fun attributionValeur() {
+    private fun attributionValue() {
         textView_detail_name_character.setText(item.nameCharacter)
         val species = item.species
         val status = item.status

@@ -9,6 +9,7 @@ import com.example.rickandmortyapplication.Main.Model.Favory.Favory
 import com.example.rickandmortyapplication.Main.Model.Locations.Locations
 import com.example.rickandmortyapplication.R
 
+//gère le bind de l'adapter pour les classes Episodes et Locations
 class OtherViewHolder(view: View) : ViewHolderManager.BaseViewHolder<BaseClass>(view) {
     var tv1 : TextView
     var tv2 : TextView

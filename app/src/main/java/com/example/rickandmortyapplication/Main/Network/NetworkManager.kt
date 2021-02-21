@@ -14,10 +14,12 @@ object NetworkManager {
         RetrofitSingleton.getRetrofitInstance().create(InterfaceListCharacters::class.java)
     }
 
+    //recupère les données de la première page
     suspend fun getNetworkListePageCharactersCoroutine(): ArrayList<Character>? {
         return RETROFIT_CHARACTERS.getJsonCharacters().characters
     }
 
+    //recupère les données des pages mises à jours
     suspend fun getUpdateNetworkPageCharacters(numPage: Int):ArrayList<Character>?{
         return RETROFIT_CHARACTERS.getPageCharacters(numPage).characters
     }
@@ -29,10 +31,12 @@ object NetworkManager {
         RetrofitSingleton.getRetrofitInstance().create(InterfaceListEpisodes::class.java)
     }
 
+    //recupère les données de la première page
     suspend fun getNetworkListePageEpisodes():ArrayList<Episodes>?{
         return RETROFIT_EPISODES.getJsonEpisodes().results
     }
 
+    //recupère les données des pages mises à jours
     suspend fun getUpdateNetworkPageEpisodes(numPage: Int):ArrayList<Episodes>?{
         return RETROFIT_EPISODES.getPageEpisode(numPage).results
     }
@@ -43,10 +47,12 @@ object NetworkManager {
         RetrofitSingleton.getRetrofitInstance().create(InterfaceListLocations::class.java)
     }
 
+    //recupère les données de la première page
     suspend fun getNetworkListPageLocations():ArrayList<Locations>?{
         return RETROFIT_LOCATIONS.getJsonLocation().locations
     }
 
+    //recupère les données des pages mises à jours
     suspend fun getUpdateNetworkPageLocations(numPage: Int):ArrayList<Locations>?{
         return RETROFIT_LOCATIONS.getPageLocation(numPage).locations
     }

@@ -68,6 +68,7 @@ class FavorisFragment : Fragment(),ViewHolderManager.BaseInterfaceOnItemClickLis
         return character
     }
 
+    //permet d'obtenir le détail du favoris
     override fun onItemClick(position: Int) {
         val fragment = FragmentDetailsCharacter()
         val bundle = Bundle()

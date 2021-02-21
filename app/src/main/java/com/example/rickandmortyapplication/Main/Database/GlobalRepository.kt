@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 class GlobalRepository(private val globalDao:GlobalDao,private val application: GlobalApplication,private val networkManager:NetworkManager) {
 
-    //select where
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun getCharactersByPage(position:Int):List<Character>{

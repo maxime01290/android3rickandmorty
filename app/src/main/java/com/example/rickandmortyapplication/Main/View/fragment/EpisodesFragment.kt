@@ -41,16 +41,21 @@ class EpisodesFragment : Fragment(), ViewHolderManager.BaseInterfaceOnItemClickL
         super.onViewCreated(view, savedInstanceState)
 
         initComponent()
-        initAPI()
+
         MAJContentButton()
         manageClick()
     }
 
     private fun initComponent(){
+        initToolbar()
+        EpisodesList = ArrayList()
+        initAPI()
+    }
+
+    private fun initToolbar(){
         toolbar_list_episodes.title = ""
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar_list_episodes)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        EpisodesList = ArrayList()
     }
 
     private fun initAPI(){
@@ -70,10 +75,11 @@ class EpisodesFragment : Fragment(), ViewHolderManager.BaseInterfaceOnItemClickL
             adapterEpisodes = AdapterItem(requireContext(), EpisodesList as ArrayList<BaseClass>,this)
             recyclerView_episodes.setAdapter(adapterEpisodes)
         } else {
-            adapterEpisodes.submit(EpisodesList as ArrayList<BaseClass>)
+            adapterEpisodes.submit(EpisodesList as ArrayList<BaseClass>) // met à jour les données dans la liste
         }
     }
 
+    //met à jour l'UI du bouton
     private fun MAJContentButton(){
         if(numPage>1){
             button_previous_page_episodes.text = "Page $numPreviousPage"
@@ -90,6 +96,7 @@ class EpisodesFragment : Fragment(), ViewHolderManager.BaseInterfaceOnItemClickL
         }
     }
 
+    //gère les clics sur le fragment
     private fun manageClick(){
         button_previous_page_episodes.setOnClickListener {
             if(numPreviousPage>0){
